@@ -1,5 +1,6 @@
 import { knowledgeDocuments } from "./_shared/knowledge.js";
 
+// Environment-variable refresh deployment.
 const SYSTEM_PROMPT = `你是 Calvin AI Resume Assistant。只根据提供的个人知识库回答。
 如果资料不足、存在版本冲突或无法确认，请明确说明，不要编造，也不要补充资料中没有的数据、职责或结论。
 
