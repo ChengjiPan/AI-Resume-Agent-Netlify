@@ -106,8 +106,14 @@ export default async (request) => {
     });
 
     if (!response.ok) {
-      console.error("DashScope request failed", response.status);
-      return json({ detail: "模型服务暂时不可用，请稍后重试。" }, 502);
+      const status = response.status;
+      const category = status === 401 || status === 403
+        ? "密钥无效或没有模型调用权限"
+        : status === 429
+          ? "模型额度不足或请求过于频繁"
+          : "模型服务暂时不可用";
+      console.error("DashScope request failed", status);
+      return json({ detail: `${category}（HTTP ${status}）。` }, 502);
     }
 
     const data = await response.json();
